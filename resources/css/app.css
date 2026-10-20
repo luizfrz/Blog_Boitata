@@ -1,0 +1,46 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+
+@source '../views';
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views';
+
+/* modo escuro controlado por <html data-theme="dark"> */
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+@theme {
+    --font-sans: 'Fira Sans', ui-sans-serif, system-ui, sans-serif;
+
+    --color-brand: #1f6fb2;
+    --color-brand-soft: #5eb0ee;
+    --color-sky-wash: #e8f2fb;
+    --color-line: #cfe0f0;
+    --color-ink: #17232e;
+    --color-head: #2c3a45;
+
+    --color-night: #0a141f;
+    --color-night-2: #10253a;
+    --color-night-card: #122234;
+    --color-night-line: #21384f;
+}
+
+/* animação circular ao trocar de tema (View Transitions API).
+   --x, --y e --r são definidos por public/js/theme.js; o estado inicial (círculo
+   fechado) fica no próprio keyframe, então o tema novo nunca aparece antes da hora. */
+::view-transition-old(root) {
+    animation: none;
+}
+
+::view-transition-new(root) {
+    animation: theme-reveal 1.4s ease-in-out both;
+    mix-blend-mode: normal;
+}
+
+@keyframes theme-reveal {
+    from { clip-path: circle(0 at var(--x) var(--y)); }
+    to   { clip-path: circle(var(--r) at var(--x) var(--y)); }
+}
+
+/* sem transições de cor da página durante a troca: elas brigam com o círculo */
+html.theme-switching :where(body, body *):not(#theme-toggle span) {
+    transition: none !important;
+}

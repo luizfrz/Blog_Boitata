@@ -1,0 +1,1 @@
+<span {{ $attributes->class('rounded-full border border-line bg-sky-wash px-2.5 py-px text-[13.5px] font-medium text-brand dark:border-night-line dark:bg-night-2 dark:text-brand-soft') }}>{{ $slot }}</span>
