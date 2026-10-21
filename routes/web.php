@@ -13,4 +13,4 @@ Route::get('/artigos/{slug}', [ArticleController::class, 'show'])->name('article
 
 Route::get('/equipe/{slug}', [MemberController::class, 'show'])->name('member');
 
-Route::get('/redes', NetworkController::class)->name('networks');
+Route::get('/networking', NetworkController::class)->name('networks');
