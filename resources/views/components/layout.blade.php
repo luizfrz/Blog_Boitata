@@ -9,7 +9,7 @@
     <link href="https://fonts.bunny.net/css?family=fira-sans:300,400,500,700" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     {{-- aplica o tema antes de pintar, evitando flash --}}
-    <script>
+    <script nonce="{{ $cspNonce ?? '' }}">
         try { document.documentElement.dataset.theme = localStorage.getItem('theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') } catch (e) { document.documentElement.dataset.theme = 'light' }
     </script>
     <script src="{{ asset('js/theme.js') }}" defer></script>
@@ -22,7 +22,6 @@
     <main class="mx-auto max-w-4xl px-5 pb-20 pt-11">{{ $slot }}</main>
 
     <footer class="border-t border-line bg-white py-7 text-sm text-slate-500 dark:border-night-line dark:bg-night-card dark:text-slate-400">
-        <div class="mx-auto max-w-4xl px-5">Boitatá Lab — grupo de estudo em Ciência de Dados · Fortaleza, CE · desde 2019</div>
     </footer>
 </body>
 </html>

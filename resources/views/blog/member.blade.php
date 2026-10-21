@@ -7,8 +7,8 @@
         </div>
     </div>
 
-    <x-card class="prose max-w-none dark:prose-invert prose-headings:text-head dark:prose-headings:text-white">
-        {!! $member->bio ?: '<p>Perfil em breve.</p>' !!}
+    <x-card>
+        <x-rich-text :html="$member->bio ?: '<p>Perfil em breve.</p>'" class="prose max-w-none dark:prose-invert prose-headings:text-head dark:prose-headings:text-white" />
     </x-card>
 
     <p class="mt-6"><a href="{{ route('home') }}" class="text-brand hover:underline dark:text-brand-soft">← Início</a></p>
