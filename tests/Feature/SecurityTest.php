@@ -32,7 +32,7 @@ class SecurityTest extends TestCase
         Network::create(['name' => 'Ruim', 'url' => 'javascript:alert(1)']);
         Network::create(['name' => 'Bom', 'url' => 'https://github.com/x']);
 
-        $this->get('/redes')->assertOk()->assertDontSee('javascript:', false)->assertSee('href="https://github.com/x"', false);
+        $this->get('/networking')->assertOk()->assertDontSee('javascript:', false)->assertSee('href="https://github.com/x"', false);
     }
 
     public function test_security_headers_are_sent_and_inline_script_uses_the_nonce(): void

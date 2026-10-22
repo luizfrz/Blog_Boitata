@@ -51,7 +51,7 @@ class BlogPagesTest extends TestCase
 
         $this->get('/equipe/ana')->assertOk()->assertSee('Ana');
         $this->get('/equipe/inexistente')->assertNotFound();
-        $this->get('/redes')->assertOk()->assertSee('https://github.com/x');
+        $this->get('/networking')->assertOk()->assertSee('https://github.com/x');
     }
 
     public function test_admin_and_team_index_are_not_exposed(): void
