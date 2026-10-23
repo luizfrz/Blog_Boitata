@@ -65,6 +65,32 @@ composer test
 | `database/seeders` | Dados iniciais |
 | `tests/Feature` | Testes de páginas e de segurança |
 
+## Deploy na Vercel
+
+O deploy usa o runtime [`vercel-php`](https://github.com/vercel-community/php) (`vercel.json` + `api/index.php`). Como o filesystem da Vercel é somente leitura, o storage do Laravel vai para `/tmp` e o banco precisa ser externo (Postgres/MySQL).
+
+1. Crie um banco externo (ex.: Neon) e rode as migrations e o seed apontando para ele:
+   ```bash
+   DB_CONNECTION=pgsql DB_URL="postgres://..." php artisan migrate --force
+   DB_CONNECTION=pgsql DB_URL="postgres://..." php artisan db:seed --force
+   ```
+2. Importe o repositório na Vercel (Framework Preset: **Other**, sem build command).
+3. Configure as variáveis de ambiente:
+   ```
+   APP_NAME=Boitatá Lab
+   APP_ENV=production
+   APP_DEBUG=false
+   APP_KEY=            # php artisan key:generate --show
+   APP_URL=https://seu-projeto.vercel.app
+   APP_LOCALE=pt_BR
+   LOG_CHANNEL=stderr
+   SESSION_DRIVER=cookie
+   CACHE_STORE=array
+   QUEUE_CONNECTION=sync
+   DB_CONNECTION=pgsql
+   DB_URL=postgres://...
+   ```
+
 ## Links
 
 - GitHub: [BoitataLabs](https://github.com/BoitataLabs)
