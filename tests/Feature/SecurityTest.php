@@ -59,4 +59,12 @@ class SecurityTest extends TestCase
 
         $this->assertDatabaseCount('users', 0);
     }
+
+    public function test_public_pages_are_cacheable_and_do_not_set_cookies(): void
+    {
+        $response = $this->get('/')->assertOk();
+
+        $this->assertStringContainsString('s-maxage=60', $response->headers->get('Cache-Control'));
+        $this->assertEmpty($response->headers->getCookies());
+    }
 }

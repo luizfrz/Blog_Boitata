@@ -30,7 +30,20 @@ $app = Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->trustProxies(at: '*');
-        $middleware->web(append: [\App\Http\Middleware\SecurityHeaders::class]);
+        // Site público: sem login nem formulários, então sem sessão, cookies ou CSRF (cada um custava uma ida ao banco).
+        $middleware->web(
+            remove: [
+                \Illuminate\Cookie\Middleware\EncryptCookies::class,
+                \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+                \Illuminate\Session\Middleware\StartSession::class,
+                \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+                \Illuminate\Foundation\Http\Middleware\PreventRequestForgery::class,
+            ],
+            append: [
+                \App\Http\Middleware\SecurityHeaders::class,
+                \App\Http\Middleware\CachePublicPages::class,
+            ],
+        );
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->shouldRenderJsonWhen(
