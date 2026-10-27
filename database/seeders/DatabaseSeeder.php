@@ -13,6 +13,7 @@ class DatabaseSeeder extends Seeder
             ArticleSeeder::class,
             MemberSeeder::class,
             NetworkSeeder::class,
+            ContentSeeder::class,
         ]);
     }
 }

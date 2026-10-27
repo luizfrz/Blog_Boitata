@@ -96,6 +96,8 @@ return [
             'prefix' => '',
             'prefix_indexes' => true,
             'search_path' => 'public',
+            // Neon usa PgBouncer: planos preparados no servidor ficam velhos depois de ALTER TABLE.
+            'options' => extension_loaded('pdo_pgsql') ? [PDO::ATTR_EMULATE_PREPARES => true] : [],
             'sslmode' => env('DB_SSLMODE', 'prefer'),
         ],
 

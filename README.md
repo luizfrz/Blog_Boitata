@@ -21,6 +21,7 @@ Este repositório contém o blog do grupo, onde publicamos artigos, apresentamos
 
 - **Artigos** — listagem e leitura de artigos organizados por categoria (`/artigos`, `/artigos/{slug}`).
 - **Equipe** — página de perfil para cada membro do grupo (`/equipe/{slug}`).
+- **Conteúdos** — livros, materiais e indicações, com filtro por tipo e botão para baixar o PDF (`/conteudos`, `/conteudos/{tipo}`).
 - **Networking** — links para as redes e comunidades do grupo (`/networking`).
 - **Tema claro/escuro** — alternância de tema pelo cabeçalho.
 - **Conteúdo seguro** — HTML dos artigos sanitizado com HTML Purifier, com testes cobrindo XSS e cabeçalhos CSP.
@@ -28,22 +29,23 @@ Este repositório contém o blog do grupo, onde publicamos artigos, apresentamos
 ## Tecnologias
 
 - [Laravel](https://laravel.com) 13 (PHP 8.3+)
-- [Tailwind CSS](https://tailwindcss.com) 4 com [Vite](https://vite.dev)
-- SQLite (padrão)
+- [Tailwind CSS](https://tailwindcss.com) 4 (CLI standalone, sem Node)
+- SQLite em desenvolvimento e PostgreSQL ([Neon](https://neon.tech)) em produção
 - [HTML Purifier](http://htmlpurifier.org) para sanitização
 - PHPUnit e Laravel Pint
 
 ## Como rodar
 
-Requisitos: PHP 8.3+, Composer e Node.js.
+Requisitos: PHP 8.3+ (com `pdo_sqlite`/`pdo_pgsql`) e Composer. Não precisa de Node.
 
 ```bash
 git clone https://github.com/BoitataLabs/Boitat--blog.git
 cd Boitat--blog
 
-composer setup                 # instala dependências, gera a chave, migra e compila os assets
-php artisan db:seed            # popula artigos, equipe e redes de exemplo
-composer dev                   # sobe o servidor de desenvolvimento
+composer setup                 # instala dependências, gera a chave, migra e gera o CSS
+php artisan db:seed            # popula artigos, equipe, redes e conteúdos de exemplo
+php artisan serve              # sobe o servidor de desenvolvimento
+composer css:watch             # (opcional) regera o CSS ao editar classes Tailwind
 ```
 
 O blog ficará disponível em `http://localhost:8000`.
@@ -54,13 +56,18 @@ O blog ficará disponível em `http://localhost:8000`.
 composer test
 ```
 
+## Deploy
+
+Veja [DEPLOY.md](DEPLOY.md): banco (Neon), variáveis da Vercel e como o admin se conecta.
+
 ## Estrutura
 
 | Caminho | Conteúdo |
 | --- | --- |
-| `app/Models` | `Article`, `Category`, `Member`, `Network` |
-| `app/Http/Controllers` | Controllers das páginas do blog |
-| `resources/views/blog` | Páginas (home, artigos, membro, networking) |
+| `app/Models` | `Article`, `Category`, `Member`, `Network`, `Content`, `ContentType` |
+| `app/Contracts`, `app/Repositories` | Interfaces e implementações Eloquent (acesso a dados) |
+| `app/Http/Controllers` | Um controller por página |
+| `resources/views/blog` | Páginas (home, artigos, conteúdos, membro, networking) |
 | `resources/views/components` | Componentes Blade reutilizáveis |
 | `database/seeders` | Dados iniciais |
 | `tests/Feature` | Testes de páginas e de segurança |

@@ -38,8 +38,8 @@
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
             "@php artisan key:generate",
             "@php artisan migrate --force",
-            "npm install --ignore-scripts",
-            "npm run build"
+            "@php -r \"is_executable('bin/tailwindcss') || passthru('sh bin/install-tailwind.sh');\"",
+            "@composer css"
         ],
         "dev": [
             "Composer\\Config::disableProcessTimeout",

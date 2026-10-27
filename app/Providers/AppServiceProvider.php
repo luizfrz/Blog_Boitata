@@ -3,10 +3,14 @@
 namespace App\Providers;
 
 use App\Contracts\ArticleRepository;
+use App\Contracts\ContentRepository;
+use App\Contracts\ContentTypeRepository;
 use App\Contracts\HtmlSanitizer;
 use App\Contracts\MemberRepository;
 use App\Contracts\NetworkRepository;
 use App\Repositories\EloquentArticleRepository;
+use App\Repositories\EloquentContentRepository;
+use App\Repositories\EloquentContentTypeRepository;
 use App\Repositories\EloquentMemberRepository;
 use App\Repositories\EloquentNetworkRepository;
 use App\Support\PurifierHtmlSanitizer;
@@ -19,6 +23,8 @@ class AppServiceProvider extends ServiceProvider
         ArticleRepository::class => EloquentArticleRepository::class,
         MemberRepository::class => EloquentMemberRepository::class,
         NetworkRepository::class => EloquentNetworkRepository::class,
+        ContentRepository::class => EloquentContentRepository::class,
+        ContentTypeRepository::class => EloquentContentTypeRepository::class,
         HtmlSanitizer::class => PurifierHtmlSanitizer::class,
     ];
 }

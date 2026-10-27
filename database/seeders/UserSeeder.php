@@ -10,8 +10,8 @@ class UserSeeder extends Seeder
     /** Cria o admin só se ADMIN_EMAIL e ADMIN_PASSWORD estiverem no .env (nada de senha no código). */
     public function run(): void
     {
-        $email = env('ADMIN_EMAIL');
-        $password = env('ADMIN_PASSWORD');
+        $email = config('app.admin_email');
+        $password = config('app.admin_password');
 
         if (! $email || ! $password) {
             $this->command?->warn('UserSeeder ignorado: defina ADMIN_EMAIL e ADMIN_PASSWORD no .env.');
