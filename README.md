@@ -56,10 +56,6 @@ O blog ficará disponível em `http://localhost:8000`.
 composer test
 ```
 
-## Deploy
-
-Veja [DEPLOY.md](DEPLOY.md): banco (Neon), variáveis da Vercel e como o admin se conecta.
-
 ## Estrutura
 
 | Caminho | Conteúdo |
