@@ -23,8 +23,7 @@ class PurifierHtmlSanitizer implements HtmlSanitizer
             return $this->purifier;
         }
 
-        $cache = storage_path('framework/cache/htmlpurifier');
-        is_dir($cache) || mkdir($cache, 0775, true);
+        $cache = $this->cacheDirectory();
 
         $config = HTMLPurifier_Config::createDefault();
         $config->set('Cache.SerializerPath', $cache);
@@ -34,5 +33,17 @@ class PurifierHtmlSanitizer implements HtmlSanitizer
         $config->set('HTML.Nofollow', true);
 
         return $this->purifier = new HTMLPurifier($config);
+    }
+
+    /** storage/ quando gravável; senão a pasta temporária (hospedagem com disco só de leitura). */
+    private function cacheDirectory(): string
+    {
+        foreach ([storage_path('framework/cache/htmlpurifier'), sys_get_temp_dir().'/htmlpurifier'] as $dir) {
+            if ((is_dir($dir) || @mkdir($dir, 0775, true)) && is_writable($dir)) {
+                return $dir;
+            }
+        }
+
+        return sys_get_temp_dir();
     }
 }
