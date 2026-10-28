@@ -8,7 +8,7 @@
   <img src="https://img.shields.io/badge/PHP-8.3+-777BB4?logo=php&logoColor=white" alt="PHP 8.3+">
   <img src="https://img.shields.io/badge/Laravel-13-FF2D20?logo=laravel&logoColor=white" alt="Laravel 13">
   <img src="https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?logo=tailwindcss&logoColor=white" alt="Tailwind CSS 4">
-  <img src="https://img.shields.io/badge/SQLite-003B57?logo=sqlite&logoColor=white" alt="SQLite">
+  <img src="https://img.shields.io/badge/PostgreSQL-003B57?logo=sqlite&logoColor=white" alt="PostgreSQL">
 </p>
 
 ## Sobre
@@ -25,14 +25,6 @@ Este repositório contém o blog do grupo, onde publicamos artigos, apresentamos
 - **Networking** — links para as redes e comunidades do grupo (`/networking`).
 - **Tema claro/escuro** — alternância de tema pelo cabeçalho.
 - **Conteúdo seguro** — HTML dos artigos sanitizado com HTML Purifier, com testes cobrindo XSS e cabeçalhos CSP.
-
-## Tecnologias
-
-- [Laravel](https://laravel.com) 13 (PHP 8.3+)
-- [Tailwind CSS](https://tailwindcss.com) 4 (CLI standalone, sem Node)
-- SQLite em desenvolvimento e PostgreSQL ([Neon](https://neon.tech)) em produção
-- [HTML Purifier](http://htmlpurifier.org) para sanitização
-- PHPUnit e Laravel Pint
 
 ## Como rodar
 
